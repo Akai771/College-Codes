@@ -18,6 +18,7 @@ public class SelectionSort {
         selectionSort(arr);
         System.out.println("Sorted Array:");
         printArray(arr);
+        scanner.close();
     }
     
     public static void selectionSort(int[] arr){
