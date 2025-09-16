@@ -1,4 +1,5 @@
 // Insertion Sort
+
 import java.util.Scanner;
 
 public class InsertionSort {
@@ -35,7 +36,7 @@ public class InsertionSort {
             // insert the correct element at the correct position
             arr[j + 1] = key;
             // Print the array after each insertion
-            System.out.println("\nAfter inserting elements ");
+            System.out.println("\nAfter inserting elements for pass " + i);
             printArray(arr);
         }
     }
