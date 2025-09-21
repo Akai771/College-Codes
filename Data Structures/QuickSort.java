@@ -1,123 +1,71 @@
-//Quick Sort
-
-import java.util.Scanner;
+import java.util.*;
 
 public class QuickSort {
-    private static int recursionLevel = 0;
-    
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("------- Quick Sort -------");
-        System.out.print("Enter the size of the Array:");
+        
+        System.out.print("Enter the size of the Array: ");
         int n = scanner.nextInt();
         int[] arr = new int[n];
-        System.out.println("Enter the " + n + " elements");
-        for(int i=0; i < n;i++){
+        
+        System.out.println("Enter the " + n + " elements:");
+        for(int i=0; i < n; i++){
             arr[i] = scanner.nextInt();
         }
+
         System.out.println("Original Array:");
-        printArray(arr);
-        System.out.println("\n--- Starting Quick Sort ---");
-        quickSort(arr, 0, n - 1);
-        System.out.println("\n--- Quick Sort Complete ---");
-        System.out.println("Sorted Array:");
-        printArray(arr);
+        System.out.println(Arrays.toString(arr));
+
+        // Call the quickSort method to sort the entire array
+        quickSort(arr, 0, arr.length - 1);
+
+        System.out.println("\nSorted Array:");
+        System.out.println(Arrays.toString(arr));
         scanner.close();
     }
-    
+
     public static void quickSort(int[] arr, int low, int high) {
-        recursionLevel++;
-        String indent = getIndent(recursionLevel);
-        
-        System.out.println(indent + "QuickSort called: low=" + low + ", high=" + high);
-        
+        // The base case: if the segment has 1 or 0 elements, it's already sorted.
         if (low < high) {
-            System.out.println(indent + "Array segment to sort:");
-            printArraySegment(arr, low, high, indent);
-            
-            // Partition the array and get the pivot index
+            // Find the pivot element such that elements smaller than pivot are on the left,
+            // and elements greater than pivot are on the right.
             int pivotIndex = partition(arr, low, high);
-            
-            System.out.println(indent + "After partitioning around pivot " + arr[pivotIndex] + ":");
-            printArraySegment(arr, low, high, indent);
-            System.out.println(indent + "Pivot is at index " + pivotIndex);
-            
-            // Recursively sort elements before and after partition
-            System.out.println(indent + "Sorting left subarray [" + low + " to " + (pivotIndex-1) + "]:");
-            quickSort(arr, low, pivotIndex - 1);
-            
-            System.out.println(indent + "Sorting right subarray [" + (pivotIndex+1) + " to " + high + "]:");
-            quickSort(arr, pivotIndex + 1, high);
-        } else {
-            System.out.println(indent + "Base case reached (low >= high), no sorting needed");
+
+            // Recursively sort the two sub-arrays
+            quickSort(arr, low, pivotIndex - 1);  // Sort left sub-array
+            quickSort(arr, pivotIndex + 1, high); // Sort right sub-array
         }
-        
-        recursionLevel--;
     }
-    
+
     public static int partition(int[] arr, int low, int high) {
-        // Choose the rightmost element as pivot
+        // Choose the rightmost element as the pivot
         int pivot = arr[high];
-        String indent = getIndent(recursionLevel + 1);
-        
-        System.out.println(indent + "Partitioning with pivot: " + pivot + " (index " + high + ")");
-        
-        // Index of smaller element indicates the right position of pivot found so far
+
+        // i is the index of the smaller element, acts as a boundary
         int i = (low - 1);
-        
-        for (int j = low; j <= high - 1; j++) {
-            System.out.println(indent + "Comparing arr[" + j + "]=" + arr[j] + " with pivot " + pivot);
-            
-            // If current element is smaller than or equal to pivot
+
+        // Iterate through the array segment
+        for (int j = low; j < high; j++) {
+            // If the current element is smaller than or equal to the pivot
             if (arr[j] <= pivot) {
-                i++; // increment index of smaller element
-                System.out.println(indent + "  " + arr[j] + " <= " + pivot + ", swapping arr[" + i + "] and arr[" + j + "]");
-                
-                // Swap elements
+                i++; // Move the boundary of the smaller element region
+
+                // Swap arr[i] and arr[j]
                 int temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
-                
-                System.out.println(indent + "  After swap:");
-                printArraySegment(arr, low, high, indent + "  ");
-            } else {
-                System.out.println(indent + "  " + arr[j] + " > " + pivot + ", no swap needed");
             }
         }
-        
-        // Swap the pivot element with the element at i+1
-        System.out.println(indent + "Final step: placing pivot at correct position");
-        System.out.println(indent + "Swapping pivot arr[" + high + "]=" + arr[high] + " with arr[" + (i+1) + "]=" + arr[i+1]);
-        
+
+        // After the loop, the correct position for the pivot is (i + 1).
+        // Swap the pivot (arr[high]) into its final sorted place.
         int temp = arr[i + 1];
         arr[i + 1] = arr[high];
         arr[high] = temp;
-        
-        System.out.println(indent + "Pivot " + arr[i+1] + " is now at index " + (i+1));
-        
+        System.out.println("Pivot " + pivot + " placed at index " + (i + 1) + ": " + Arrays.toString(arr));
+
+        // Return the index where the pivot was placed
         return (i + 1);
-    }
-    
-    public static void printArray(int[] arr) {
-        for (int num : arr) {
-            System.out.print(num + " ");
-        }
-        System.out.println();
-    }
-    
-    public static void printArraySegment(int[] arr, int low, int high, String indent) {
-        System.out.print(indent);
-        for (int i = low; i <= high; i++) {
-            System.out.print(arr[i] + " ");
-        }
-        System.out.println();
-    }
-    
-    public static String getIndent(int level) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < level; i++) {
-            sb.append("  "); // Two spaces per level
-        }
-        return sb.toString();
     }
 }
