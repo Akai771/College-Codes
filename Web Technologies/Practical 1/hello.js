@@ -5,12 +5,3 @@ http.createServer(function (req, res) {
     res.end('Hello World\n');
 }).listen(port);
 console.log('Server running at http://localhost:' + port + '/');
-
-module.exports = {
-    addNumbers : function(a, b) {
-        return a + b;
-    },
-    subtractNumbers : function(a, b) {
-        return a - b;
-    }
-}
