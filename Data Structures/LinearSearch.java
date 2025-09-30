@@ -26,6 +26,7 @@ public class LinearSearch {
         for (int i = 0; i < n; i++){
             if(arr[i] == search){
                 System.out.println("Element found at " + i);
+                break;
             }
             else{
                 continue;

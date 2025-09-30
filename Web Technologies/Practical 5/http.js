@@ -1,45 +1,62 @@
 const http = require('http');
+const url = require('url');
+const fs = require('fs');
+const path = require('path');
+
 const port = 3000;
 
-const server = http.createServer((req, res) => {
-    // Set response header
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-
-    // Handle GET request
-    if (req.method === "GET") {
-        res.end("This is a GET request!");
+const server = http.createServer((req,res)=>{
+    const parsedUrl = url.parse(req.url, true);
+    const pathname = parsedUrl.pathname;
+    console.log(req.method);
+    if (pathname === "/" && req.method === "GET"){
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Welcome to node.js HTTP Server!!!')
     }
-
-    // Handle POST request
-    else if (req.method === "POST") {
-        let body = "";
-
-        // Collect POST data
-        req.on("data", chunk => {
-            body += chunk.toString();
+    else if (pathname === "/create" && req.method === "POST") {
+        const filepath = path.join(__dirname, 'serverFile.txt');
+        
+        req.on('end', () => {
+            fs.writeFileSync(filepath, body || `This file was created by HTTP Server and the server is running on port ${port}`, 'utf-8');
+            
+            res.writeHead(201, { 'Content-Type': 'text/plain' });
+            if (fs.existsSync(filepath)) {
+                res.end("File Created Successfully");
+            } else {
+                res.end("File Creation Unsuccessful");
+            }
         });
-
-        req.on("end", () => {
-            res.end("Received POST data: " + body);
+        
+        req.on('error', (err) => {
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end(`Error: ${err.message}`);
         });
     }
-
-    // Handle PUT request
-    else if (req.method === "PUT") {
-        res.end("This is a PUT request!");
+    else if (pathname === '/read' && req.method === 'GET'){
+        const filepath = path.join(__dirname, 'serverFile.txt');
+        if (fs.existsSync(filepath)){
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            const fileText = fs.readFileSync(filepath, 'utf-8');
+            res.end(fileText);
+                
+        }
+        else{
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end('There is no file')
+        }
     }
-
-    // Handle DELETE request
-    else if (req.method === "DELETE") {
-        res.end("This is a DELETE request!");
+    else if (pathname === "/delete" && req.method === "DELETE") {
+        const filepath = path.join(__dirname, 'serverFile.txt');
+        if (fs.existsSync(filepath)){
+            fs.unlinkSync(filepath);
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end("File Deleted successfully");
+        }
     }
-
-    // Default response
-    else {
-        res.end("Unsupported request method: " + req.method);
+    else{
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end("No Results found");
     }
-});
-
-server.listen(port, () => {
-    console.log("Server running at http://localhost:" + port);
-});
+}).listen(port, () => {
+    console.log(`Server started at http://localhost:${port}/`)
+})
