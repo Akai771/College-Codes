@@ -1,7 +1,7 @@
 // Hash Map
 import java.util.*;
 
-public class MapMethodsDemo{
+public class TestHashMap {
 	public static void main(String[] args){
 		// Create a map container
 		Map<String, Integer> marks = new HashMap<String,Integer>();
