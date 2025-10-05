@@ -16,7 +16,7 @@ public class InsertionSort {
             }
         System.out.println("Original array: ");
         printArray(arr);
-        // perform insertioan sort with steps
+        // perform insertion sort with steps
         insertionSortWithSteps(arr);
         System.out.println("Sorted array: ");
         printArray(arr);
