@@ -1,6 +1,6 @@
 //Selection Sort
 
-package Practice;
+package Practice.DS;
 import java.util.Arrays;
 import java.util.Scanner;
 

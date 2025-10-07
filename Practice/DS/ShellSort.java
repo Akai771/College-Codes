@@ -1,4 +1,4 @@
-package Practice;
+package Practice.DS;
 import java.util.*;
 
 public class ShellSort {

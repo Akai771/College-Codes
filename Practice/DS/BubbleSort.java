@@ -1,4 +1,4 @@
-package Practice;
+package Practice.DS;
 import java.util.Scanner;
 
 public class BubbleSort {
@@ -32,7 +32,7 @@ public class BubbleSort {
                 }
             }
             if(!swapped){
-                break;
+                break;s
             }
         } 
     }
