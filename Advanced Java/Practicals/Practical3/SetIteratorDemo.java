@@ -1,8 +1,11 @@
-package Assignment;
+// Write a Java program to create a Set containing list of items of type String and print the items in the list using Iterator interface.
+// Also print the list in reverse / backward direction.
+
+package Practicals.Practical3;
 import java.util.*;
 
-class Assignment3 {
-	public static void main(String[] args){
+public class SetIteratorDemo {
+    public static void main(String[] args){
 		Set<String> set = new HashSet<>();
 		set.add("Raj");
 		set.add("Ram");

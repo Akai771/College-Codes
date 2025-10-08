@@ -1,9 +1,11 @@
-// Aim of this program to create list and use List Iterator interface. also print list in backward //direction
-package Assignment;
+// Write a Java program to create List containing list of items and use ListIterator interface to print items present in the list. 
+// Also print the list in reverse / backward direction.
+
+package Practicals.Practical2;
 import java.util.*;
 
-class Assignment2 {
-	public static void main(String[] args) {
+public class ListIteratorDemo {
+    public static void main(String[] args) {
 		List<Integer> l1 = new LinkedList<>();
 		l1.add(10);
 		l1.add(50);
