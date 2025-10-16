@@ -10,12 +10,7 @@ public class GenericWildcardDemo {
         intList.add(2);
         intList.add(3);
 
-        List<String> strList = new ArrayList<>();
-        strList.add("Hello");
-        strList.add("World");
-
         printList(intList);
-        printList(strList);
     }
 
     public static void printList(List<?> list) {

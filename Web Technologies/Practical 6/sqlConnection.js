@@ -2,7 +2,8 @@ const mysql = require("mysql2");
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "tiger",
+  port: 3306,  
+  password: "System",
   database: "testdb",
 });
 
@@ -85,12 +86,12 @@ connection.connect((err) => {
     );
   });
 
-  const dropTable = `drop table ${tableName}`;
-  connection.query(dropTable, (err) => {
-    if (err) {
-      console.error(`There is an error executing query : Drop Query : ${err}`);
-      return;
-    }
-    console.log(`Table successfully deleted.`);
-  });
+  // const dropTable = `drop table ${tableName}`;
+  // connection.query(dropTable, (err) => {
+  //   if (err) {
+  //     console.error(`There is an error executing query : Drop Query : ${err}`);
+  //     return;
+  //   }
+  //   console.log(`Table successfully deleted.`);
+  // });
 });

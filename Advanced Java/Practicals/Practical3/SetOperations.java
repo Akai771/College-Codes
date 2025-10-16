@@ -20,11 +20,6 @@ public class SetOperations {
 		
 		// Insert items of one set into other set
 		Set<String> set2 = new HashSet<>();
-		set2.add("Grapes");
-		set2.add("Pineapple");
-		
-		System.out.println("\nSet 2: " + set2);
-		
 		set2.addAll(set1);
 		System.out.println("Set 2 after inserting items from Set 1: " + set2);
 		

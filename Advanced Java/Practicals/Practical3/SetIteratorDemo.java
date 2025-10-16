@@ -11,14 +11,14 @@ public class SetIteratorDemo {
 		set.add("Ram");
 		set.add("priya");
 
-		System.out.println("Set Value in ascending order ");
+		System.out.print("Set Value in ascending order: ");
 		
 		Iterator<String> itr = set.iterator();
 		while(itr.hasNext()) {
 			System.out.print(itr.next() + " ");
 		}
 		System.out.println();
-		System.out.println("Set Value in Decending order ");
+		System.out.print("Set Value in Decending order : ");
 		
 		List<String> l1 = new ArrayList<>(set);
 		

@@ -16,7 +16,7 @@ public class ListIteratorDemo {
 		for(int i = 0; i < l1.size(); i++){
 			System.out.print(l1.get(i) + " ");
 		}
-		System.out.println();
+		System.out.println(); 
 
 		System.out.println("List in Decending order ");
 		ListIterator<Integer> itr = l1.listIterator(l1.size());

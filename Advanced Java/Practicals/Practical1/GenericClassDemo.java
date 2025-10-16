@@ -1,7 +1,6 @@
 // Write a Java Program to demonstrate a Generic Class.
 
 package Practicals.Practical1;
-import java.util.*;
 
 class test<T> {
     T obj;
