@@ -1,13 +1,12 @@
 -- Practical 3
-
 create table employee1(empid number(8), empname varchar2(5),dept_name varchar2(15),salary number(10),gender varchar2(10));
 
-insert into employee1 values(101,'reema','testing',45000,'female'); 
-insert into employee1 values(102,'seema','testing',46000,'female'); 
-insert into employee1 values(103,'heema','support',38000,'female'); 
-insert into employee1 values(104,'tom','support',30000,'male'); 
-insert into employee1 values(105,'eva','develop',40000,'female'); 
-insert into employee1 values(106,'rohit','develop',20000,'male'); 
+insert into employee1 values(101,'reema','testing',45000,'female');
+insert into employee1 values(102,'seema','testing',46000,'female');
+insert into employee1 values(103,'heema','support',38000,'female');
+insert into employee1 values(104,'tom','support',30000,'male');
+insert into employee1 values(105,'eva','develop',40000,'female');
+insert into employee1 values(106,'rohit','develop',20000,'male');
 
 -- lag() : access data from previous row in the same result set without using self join
 select empname, dept_name, salary, lag(salary) over(order by salary) from employee1; -- previous salary
