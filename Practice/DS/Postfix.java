@@ -1,7 +1,8 @@
-package Practical4;
+package Practice.DS;
+
 import java.util.*;
 
-public class StackPostfix {
+public class Postfix {
     static int top = -1;
 
     public static int pop(int[] stack) {
@@ -12,13 +13,11 @@ public class StackPostfix {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String str = "12 3 4 + 5 -";
-
+        String str = "23 3 +";
         int[] stack = new int[str.length()];
 
         for (int i = 0; i < str.length(); i++) {
             if (Character.isDigit(str.charAt(i))) {
-                // stack[++top] = ((int) (str.charAt(i)) - 48);
                 int num = 0;
                 while (i < str.length() && Character.isDigit(str.charAt(i))) {
                     num = num * 10 + (str.charAt(i) - '0');
@@ -26,8 +25,9 @@ public class StackPostfix {
                 }
                 i--;
                 stack[++top] = num;
+            }
 
-            } else {
+            else {
                 int num1;
                 int num2;
                 switch (str.charAt(i)) {
