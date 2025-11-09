@@ -1,14 +1,14 @@
-package Practical4;
+package Practice.DS;
 import java.util.*;
 
-class InfixPostfix {
+public class InfixPostfix {
     static Scanner sc = new Scanner(System.in);
-    static int precedence(char ch) {
+    static int precedence(char ch){
         switch (ch) {
             case '+':
             case '-':
                 return 1;
-                
+            
             case '*':
             case '/':
                 return 2;
@@ -19,25 +19,23 @@ class InfixPostfix {
     }
 
     public static String infixToPostfix(String infix) {
-        String operator = "+-*/()";
+        String operator = "+-*/";
         String result = "";
         char[] stack = new char[infix.length()];
         int top = -1;
-        for (int i = 0; i < infix.length(); i++) {
+        for(int i = 0; i < infix.length(); i++){
             char ch = infix.charAt(i);
-
-            if (ch == ' ') {
+            if(ch == ' '){
                 continue;
             }
 
-            if (!operator.contains(String.valueOf(ch))) {
+            if(!operator.contains(String.valueOf(ch))){
                 result += ch;
-            } 
-            else {
-                while (top >= 0 && precedence(stack[top]) >= precedence(ch)) {
+            }
+            else{
+                while(top >= 0 && precedence(stack[top])>= precedence(ch)){
                     result += stack[top--];
                 }
-                stack[++top] = ch;
             }
         }
         while (!(top == -1)) {
@@ -49,7 +47,7 @@ class InfixPostfix {
     public static void main(String[] args) {
         String infix = "A*B+C*D+E";
         String postfix = infixToPostfix(infix);
-        System.out.println("Infix: " + infix);
-        System.out.println("Postfix: " + postfix);
+        System.out.println("Infix: " + infix); 
+        System.out.println("Postfix: " + postfix); 
     }
 }
