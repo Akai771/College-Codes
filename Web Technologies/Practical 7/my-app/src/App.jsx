@@ -1,11 +1,14 @@
 import LifeCycleDemo from './LifeCycleDemo'
+import ClassFunctionalComponent from './ClassFunctionalComponent'
+import ImportExport from './ImportExport'
 import './App.css'
 
 function App() {
-
   return (
     <>
-    <LifeCycleDemo />
+      <LifeCycleDemo />
+      {/* <ClassFunctionalComponent /> */}
+      {/* <ImportExport/> */}
     </>
   )
 }
