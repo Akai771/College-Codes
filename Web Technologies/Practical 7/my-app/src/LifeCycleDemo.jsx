@@ -30,7 +30,7 @@ class LifeCycleDemo extends React.Component {
         return(<>
             <div>
                 <h1>Life Cycle Methods</h1>
-                <p>Count: ${this.state.count}</p>
+                <p>Count: {this.state.count}</p>
                 <button onClick={this.incrementCount}>Click</button>
             </div>
         </>)
