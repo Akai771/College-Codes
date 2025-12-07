@@ -29,7 +29,7 @@ export default function ClassFunctionalComponent() {
   function FunctionalComponent() {
     const [count, setCount] = useState(0);
 
-    const increment = () => {
+    function incrementCount(){
       setCount(count + 1);
     };
 
@@ -37,7 +37,7 @@ export default function ClassFunctionalComponent() {
       <div>
         <h2>Functional Component</h2>
         <p>Count: {count}</p>
-        <button onClick={increment}>Increment</button>
+        <button onClick={incrementCount}>Increment</button>
       </div>
     );
   }
@@ -48,7 +48,7 @@ export default function ClassFunctionalComponent() {
       <p>Demonstration of both component types with state management and lifecycle methods.</p>
       
       <div style={{display: "flex", flexDirection: "row", gap: "50px" }}>
-        <ClassComponent title="Class Component Demo" />
+        <ClassComponent/>
         <FunctionalComponent />
       </div>
     </div>
