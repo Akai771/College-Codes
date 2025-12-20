@@ -1,14 +1,23 @@
 import LifeCycleDemo from './LifeCycleDemo'
 import ClassFunctionalComponent from './ClassFunctionalComponent'
 import ImportExport from './ImportExport'
+import DomEvents from './DomEvents'
+import FormValidation from './form'
+import ReactHooks from './Hooks'
+import SpaRouter from './SpaRouter'
 import './App.css'
+
 
 function App() {
   return (
     <>
-      <LifeCycleDemo />
+      {/* <LifeCycleDemo /> */}
       {/* <ClassFunctionalComponent /> */}
       {/* <ImportExport/> */}
+      {/* <DomEvents/> */}
+      {/* <FormValidation/> */}
+      {/* <ReactHooks/> */}
+      <SpaRouter/>
     </>
   )
 }
