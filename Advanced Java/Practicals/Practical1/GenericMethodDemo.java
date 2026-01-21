@@ -8,7 +8,7 @@ public class GenericMethodDemo {
 		Integer[] integers={1,2,3,4,5}; //non-primitive data type
 		String[] strings={"Mumbai", "Pune", "Delhi"};
 		printArray(strings);
-		printArray(integers);
+		printArray(integers);On
 	} //end main
 	
 	public static<E> void printArray(E[] value){

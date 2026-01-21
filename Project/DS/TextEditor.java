@@ -47,7 +47,6 @@ class TextAnalyzer {
 }
 
 class SearchEngine {
-
     public int linearSearch(String text, String target) {
         if (text == null || target == null || target.isEmpty()) {
             return -1;
@@ -131,12 +130,12 @@ public class TextEditor extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         buttonPanel.setBackground(new Color(240, 240, 240));
         
-        undoBtn = createButton("⟲ Undo", new Color(100, 150, 255));
-        redoBtn = createButton("⟳ Redo", new Color(100, 150, 255));
-        findBtn = createButton("🔍 Find", new Color(50, 200, 100));
-        replaceBtn = createButton("✎ Replace", new Color(50, 200, 100));
-        wordFreqBtn = createButton("📊 Word Frequency", new Color(255, 150, 50));
-        clearBtn = createButton("🗑 Clear", new Color(255, 100, 100));
+        undoBtn = createButton("Undo", new Color(100, 150, 255));
+        redoBtn = createButton("Redo", new Color(100, 150, 255));
+        findBtn = createButton("Find", new Color(50, 200, 100));
+        replaceBtn = createButton("Replace", new Color(50, 200, 100));
+        wordFreqBtn = createButton("Word Frequency", new Color(255, 150, 50));
+        clearBtn = createButton("Clear", new Color(255, 100, 100));
         
         buttonPanel.add(undoBtn);
         buttonPanel.add(redoBtn);
@@ -146,7 +145,7 @@ public class TextEditor extends JFrame {
         buttonPanel.add(clearBtn);
         statusLabel = new JLabel(" Ready | Stack-based Undo/Redo | HashMap Word Analysis | Linear Search");
         statusLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        statusLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+        statusLabel.setFont(new Font("Roboto", Font.PLAIN, 11));
         
         // Layout
         setLayout(new BorderLayout(5, 5));
@@ -157,7 +156,7 @@ public class TextEditor extends JFrame {
     
     private JButton createButton(String text, Color color) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.BOLD, 12));
+        button.setFont(new Font("Roboto", Font.BOLD, 12));
         button.setBackground(color);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
@@ -245,13 +244,16 @@ public class TextEditor extends JFrame {
     }
     
     private void replace() {
-        JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
+        JPanel panel = new JPanel(new GridLayout(3, 2, 5, 5));
         JTextField findField = new JTextField();
         JTextField replaceField = new JTextField();
         panel.add(new JLabel("Find:"));
         panel.add(findField);
         panel.add(new JLabel("Replace with:"));
         panel.add(replaceField);
+        JLabel noteLabel = new JLabel("Note: This is case-sensitive.");
+        noteLabel.setForeground(Color.RED);
+        panel.add(noteLabel);
         
         int result = JOptionPane.showConfirmDialog(this, panel, "Find and Replace", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
