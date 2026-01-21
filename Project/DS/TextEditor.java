@@ -116,7 +116,7 @@ public class TextEditor extends JFrame {
     }
 
     private void setupUI() {
-        setTitle("Text Editor - Stack, HashMap & Linear Search Demo");
+        setTitle("Notepad--");
         setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -189,6 +189,8 @@ public class TextEditor extends JFrame {
                         redo();
                     } else if (e.getKeyCode() == KeyEvent.VK_F) {
                         find();
+                    } else if (e.getKeyCode() == KeyEvent.VK_H) {
+                        replace();
                     }
                 }
             }
