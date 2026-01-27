@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- Normal method -->
+	<bean id="addr1" class="com.Student.Address">
+		<constructor-arg value="maug pur" />
+		<constructor-arg value="Maug" />
+	</bean>
+	
+	<bean id="s1" class="com.Student.StudentInfo">
+		<constructor-arg value="maru marela" />
+		<constructor-arg value="101" />
+		<constructor-arg value="BMCA" />
+		<constructor-arg ref="addr1" />
+	</bean>
+	
+	<!-- using c schema i.e constructor schema  -->
+	<bean id="addr2" class="com.Student.Address" c:city="bhootiya city" c:state="lutera state" />
+	<!-- this wont work as address-res taking value as string -->
+	<!-- <bean id="s2" class="com.Student.StudentInfo" c:name="Ganpat ghisela" c:rollNo="102" c:std="TYMCA" c:address-ref="addr2" /> -->
+
+	<!-- this is the other method we are using constructor index to set value -->
+	<bean id="s2" class="com.Student.StudentInfo" c:_0="Ganpat ghisela" c:_1="102" c:_2="TYMCA" c:_3-ref="addr2" />
+
+</beans>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- by default the type of value will be string so it will call constructor with string, string type -->
+	<bean id="add1" class="com.Ambiguity.Addition">
+		<constructor-arg value="2" />
+		<constructor-arg value="3" />
+	</bean>
+	
+	<!-- here since we have given the type attribute so it will search for specific constructor which matches the type will be called -->
+	<bean id="add2" class="com.Ambiguity.Addition">
+		<constructor-arg value="2" type="double" />
+		<constructor-arg value="3" type="double" />
+	</bean>
+	
+	<!-- it matches the first argument as double and then call it -->
+	<bean id="add3" class="com.Ambiguity.Addition">
+		<constructor-arg value="2" type="double" />
+		<constructor-arg value="3" />
+	</bean>
+	
+	<!-- we can also specify constructor argument index to set value  -->
+	<bean id="add4" class="com.Ambiguity.Addition">
+		<constructor-arg value="2" index="1" />
+		<constructor-arg value="3" index="0" />
+	</bean>
+	
+	
+	<!-- NOTE: if the type doesn't given so it will search for string constructor if it is not there so it will call first occurring constructor -->
+
+</beans>
