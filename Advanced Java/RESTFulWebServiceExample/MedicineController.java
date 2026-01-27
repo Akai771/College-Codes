@@ -1,4 +1,4 @@
-package com.example.pharma.controller;
+package RESTFulWebServiceExample;
 
 import com.example.pharma.model.Medicine;
 import com.example.pharma.service.MedicineService;

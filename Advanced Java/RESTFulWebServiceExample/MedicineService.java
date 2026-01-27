@@ -1,5 +1,5 @@
 // Service class for managing medicines
-package com.example.pharma.service;
+package RESTFulWebServiceExample;
 
 import com.example.pharma.model.Medicine;
 import org.springframework.stereotype.Service;

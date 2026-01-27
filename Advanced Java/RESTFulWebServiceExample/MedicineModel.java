@@ -1,5 +1,5 @@
 // Model class for Medicine
-package com.example.pharma.model;
+package RESTFulWebServiceExample;
 
 public class MedicineModel {
 
