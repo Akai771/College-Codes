@@ -1,45 +1,194 @@
-package Practice.DS;
 import java.util.*;
 
-public class Practice {
-    static int pass = 1;
+public class Practice{
+    static class Node{
+        int data;
+        Node left, right;
+
+        Node(int data){
+            this.data = data;
+        }
+    }
+
+    static Node root;
+     
+    static Node insert(Node root, int key){
+        if(root == null){
+            return new Node(key);
+        }
+        if (key < root.data){
+            root.left = insert(root.left, key);
+        }
+        else if (key > root.data){
+            root.right = insert(root.right, key);
+        }
+        return root;
+    }
+
+    static Node delete(Node root, int key){
+        if(root == null){
+            return null;
+        }
+        if (key < root.data){
+            root.left = delete(root.left, key);
+        }
+        else if (key < root.data){
+            root.left = delete(root.left, key);
+        }
+        else{
+            if(root.left == null){
+                return root.right;
+            }
+            if(root.right == null){
+                return root.left;
+            }
+
+            root.data = findMin(root.right);
+            root.right = delete(root.right, root.data);
+        }
+        return root;
+    }
+
+    static int height(Node root){
+        if(root == null){
+            return -1;
+        }
+        return 1 + Math.max(height(root.left), height(root.right));
+    }
+
+    static int findMin(Node root){
+        while (root.left != null) {
+            root = root.left;
+        }
+        return root.data;
+    }
+
+    static int findMax(Node root){
+        while (root.right != null) {
+            root = root.right;
+        }
+        return root.data;
+    }
+
+    static void inorder(Node root){
+        if (root != null) {
+            inorder(root.left);
+            System.out.println(root.data + " ");
+            inorder(root.right);
+        }
+    }
+
+    static void preorder(Node root){
+        if (root != null) {
+            System.out.println(root.data + " ");
+            inorder(root.left);
+            inorder(root.right);
+        }
+    }
+
+    static void postorder(Node root){
+        if (root != null) {
+            inorder(root.left);
+            inorder(root.right);
+            System.out.println(root.data + " ");
+        }
+    }
+
+    static void displayTree(Node root, int space){
+        if(root == null){
+            return;
+        }
+        else{
+            space += 10;
+            displayTree(root.right, space);
+            System.out.println("");
+            for(int i = 10; i < space; i++){
+                System.out.print(" ");
+            }
+            System.out.println(root.data);
+            displayTree(root.left, space);
+        }
+    }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the size of the Array: ");
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
-        System.out.println("Enter the " + n + " elements:");
-        for(int i=0; i < n; i++){
-            arr[i] = scanner.nextInt();
-        }
-        System.out.println("Original Array:");
-        System.out.println(Arrays.toString(arr));
-        quickSort(arr, 0, arr.length - 1);
-        System.out.println("\nSorted Array:");
-        System.out.println(Arrays.toString(arr));
-        scanner.close();
-    }
+         Scanner sc = new Scanner(System.in);
+        int choice, value;
 
-    public static void quickSort(int[] arr, int low, int high){
-        if (low < high){
-            int pivotIndex = partition(arr, low, high);
-            quickSort(arr, low, pivotIndex - 1);
-            quickSort(arr, pivotIndex + 1, high);
-        }
-    }
+        while (true) {
+            System.out.println("\n----- BST Menu -----");
+            System.out.println("1. Insert");
+            System.out.println("2. Delete");
+            System.out.println("3. Height Of Tree");
+            System.out.println("4. Inorder Traversal");
+            System.out.println("5. Preorder Traversal");
+            System.out.println("6. Postorder Traversal");
+            System.out.println("7. Find Max");
+            System.out.println("8. Find Min");
+            System.out.println("9. Display Tree");
+            System.out.println("10. Exit");
 
-    public static int partition(int[] arr, int low, int high){
-        int i = low - 1;
-        for(int j = low; j <= high; j++){
-            if(arr[j] <= arr[high]){
-                i++;
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+            System.out.print("\nEnter Choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Value to insert: ");
+                    value = sc.nextInt();
+                    root = insert(root, value);
+                    System.out.println("Value inserted successfully!");
+                    break;
+
+                case 2:
+                    System.out.println("Height: " + height(root));
+                    break;
+
+                case 3:
+                    System.out.println("Postorder Traversal:");
+                    inorder(root);
+                    System.out.println();
+                    break;
+
+                case 4:
+                    System.out.println("Postorder Traversal:");
+                    preorder(root);
+                    System.out.println();
+                    break;
+
+                case 5:
+                    System.out.println("Postorder Traversal:");
+                    postorder(root);
+                    System.out.println();
+                    break;
+
+                case 6:
+                    if (root != null)
+                        System.out.println("Max :" + findMax(root));
+                    else
+                        System.out.println("is empty");
+                    break;
+
+                case 7:
+                    if (root != null)
+                        System.out.println("Min :" + findMin(root));
+                    else
+                        System.out.println("is empty");
+                    break;
+
+
+                case 9:
+                    System.out.println("Displaying Tree:");
+                    displayTree(root, 0);
+                    break;
+
+                case 10:
+                    System.out.println("Exiting...");
+                    sc.close();
+                    break;
+
+
+                default:
+                    System.out.println("Invalid Choice!");
             }
         }
-        System.out.println("Pass " + pass++ + " :" + Arrays.toString(arr));
-        return i;
     }
 }

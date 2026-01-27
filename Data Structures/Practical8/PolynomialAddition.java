@@ -1,5 +1,3 @@
-package Practical8;
-
 class Node {
     int coeff;
     int pow;
@@ -13,7 +11,6 @@ class Node {
 }
 
 public class PolynomialAddition {
-
     // Function to add two polynomials
     public static Node addPolynomials(Node poly1, Node poly2) {
         Node result = new Node(0, 0);
