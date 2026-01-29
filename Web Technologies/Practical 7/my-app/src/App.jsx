@@ -6,6 +6,7 @@ import FormValidation from './form'
 import ReactHooks from './Hooks'
 import SpaRouter from './SpaRouter'
 import ComponentInComponent from './components/ComponentInComponent'
+import ServerSideValidation from './ServerSideValidation'
 import './App.css'
 
 
@@ -19,6 +20,7 @@ function App() {
       {/* <FormValidation/> */}
       {/* <ReactHooks/> */}
       {/* <ComponentInComponent /> */}
+      {/* <ServerSideValidation/> */}
       <SpaRouter/>
     </>
   )
