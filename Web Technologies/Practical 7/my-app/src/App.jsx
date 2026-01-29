@@ -5,6 +5,7 @@ import DomEvents from './DomEvents'
 import FormValidation from './form'
 import ReactHooks from './Hooks'
 import SpaRouter from './SpaRouter'
+import ComponentInComponent from './components/ComponentInComponent'
 import './App.css'
 
 
@@ -17,6 +18,7 @@ function App() {
       {/* <DomEvents/> */}
       {/* <FormValidation/> */}
       {/* <ReactHooks/> */}
+      {/* <ComponentInComponent /> */}
       <SpaRouter/>
     </>
   )

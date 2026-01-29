@@ -5,23 +5,19 @@ eventEmitter.once('start', ()=>{
     console.log("Application Started!!!")
 })
 
-eventEmitter.on("hello", (name)=>{
-    console.log("Server started for " + name);
+eventEmitter.on("primeNumbers", ()=>{
+    for (let i = 2; i <= 100; i++) {
+        let isPrime = true;
+        for (let j = 2; j < i; j++) {
+            if (i % j === 0) {
+                isPrime = false;
+                break;
+            }
+        }
+        if (isPrime) console.log(i);
+    }
 })
 
 eventEmitter.emit('start');
-eventEmitter.emit('hello', 'ABC')
+eventEmitter.emit("primeNumbers");
 
-
-
-
-const farewell=(name)=>{
-    console.log(`Goodbye, ${name}`)
-}
-
-eventEmitter.on("farewell",farewell);
-eventEmitter.emit("farewell", 'alice');
-
-// Removing Listener for farewell
-eventEmitter.removeListener("farewell", farewell);
-eventEmitter.emit("farewell",'bob')
