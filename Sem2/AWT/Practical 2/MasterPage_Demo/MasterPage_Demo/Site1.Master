@@ -1,0 +1,33 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="MasterPage_Demo.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:Panel ID="pnlContainer" runat="server">
+
+            <asp:Panel ID="pnlHeader" runat="server" HorizontalAlign="Center">
+                <asp:Image ID="Image1" runat="server" Height="230px" ImageUrl="~/images/hiray.png" />
+            </asp:Panel>
+
+            <asp:Panel ID="pnlMenu" runat="server" HorizontalAlign="Center">
+                <asp:HyperLink ID="home" runat="server" NavigateUrl="~/Home.aspx">Home</asp:HyperLink>
+                &nbsp; | |&nbsp;
+                <asp:HyperLink ID="about" runat="server" NavigateUrl="~/About.aspx">About Us</asp:HyperLink>
+                &nbsp; | |&nbsp;
+                <asp:HyperLink ID="contact" runat="server" NavigateUrl="~/Contact.aspx">Contact Us</asp:HyperLink>
+            </asp:Panel>
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+
+            <asp:Panel ID="pnlFooter" runat="server" HorizontalAlign="Center">Copyright Rights Reserved &copy</asp:Panel>
+        </asp:Panel>
+    </form>
+</body>
+</html>
