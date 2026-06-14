@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "mysql2": "^3.16.2",
-    "oracledb": "^6.10.0"
-  }
-}
