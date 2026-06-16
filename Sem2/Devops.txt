@@ -1,0 +1,522 @@
+# DEVOPS LAB
+
+----------------------------- Github --------------------------------------
+1.    git init – Initializes a new Git repository in the current directory.
+2.    git clone <repository_url> – Clones an existing repository from a remote source (e.g., GitHub).
+3.    git status – Displays the current state of the working directory and the staging area.
+4.    git add <file> – Stages a specific file for commit.
+5.    git add . – Stages all modified and new files for commit.
+6.    git commit -m "message" – Saves the staged changes with a descriptive message.
+7.    git commit -am "message" – Commits tracked files with changes, skipping git add.
+8.    git log – Shows commit history.
+9.    git log --oneline – Displays commit history in a concise format.
+10.   git diff – Shows changes between the working directory and the last commit.
+11.   git diff --staged – Shows changes that have been staged for commit.
+
+###### Branching and Merging
+12.    git branch – Lists all branches in the repository.
+13.    git branch <branch_name> – Creates a new branch.
+14.    git checkout <branch_name> – Switches to the specified branch.
+15.    git switch <branch_name> – Alternative to git checkout for switching branches.
+16.    git checkout -b <branch_name> – Creates and switches to a new branch.
+17.    git merge <branch_name> – Merges a branch into the current branch.
+18.    git branch -d <branch_name> – Deletes a local branch.
+19.    git branch -D <branch_name> – Forcibly deletes a branch.
+
+###### Remote Repository Commands
+20.    git remote add origin <repository_url> – Adds a remote repository.
+21.    git remote -v – Lists the remote repositories linked to the project.
+22.    git push -u origin <branch_name> – Pushes a local branch to the remote repository.
+23.    git push – Pushes changes to the remote repository.
+24.    git pull – Fetches and integrates changes from the remote repository.
+25.    git fetch – Retrieves updates from a remote repository without merging.
+26.    git remote remove <name> – Removes a remote repository link.
+
+###### Stashing and Cleaning
+27.    git stash – Saves uncommitted changes for later use.
+28.    git stash pop – Applies stashed changes back to the working directory.
+29.    git stash list – Shows all stashed changes.
+30.    git stash drop – Deletes a specific stash.
+31.    git clean -f – Removes untracked files from the working directory.
+
+###### Undoing Changes
+32.    git reset <file> – Unstages a file but keeps changes.
+33.    git reset --hard – Resets everything (staging + working directory) to the last commit.
+34.    git reset --soft HEAD~1 – Moves the last commit back to the staging area.
+35.    git revert <commit_hash> – Creates a new commit that undoes a previous commit.
+36.    git checkout -- <file> – Discards changes to a specific file.
+
+###### Tagging
+37.    git tag – Lists all tags in the repository.
+38.    git tag -a <tag_name> -m "message" – Creates an annotated tag.
+39.    git push origin <tag_name> – Pushes a specific tag to the remote repository.
+40.    git push --tags – Pushes all local tags to the remote repository.
+
+###### Configuration & Help
+41.    git config --global user.name "Your Name" – Sets the global username for Git.
+42.    git config --global user.email "you@example.com" – Sets the global email for Git.
+43.    git config --list – Shows current Git configuration.
+44.    git help <command> – Shows help information for a specific Git command.
+
+
+
+---------------------------------- Gitlab ---------------------------
+----- bash file
+#!/bin/bash
+
+echo "This is a try bash script."
+touch myfile.txt
+echo "Sample text added" > myfile.txt
+echo "this is the end of the bash script."
+
+
+
+---- .gitlab-ci.yml
+stages:
+  - build
+  - test
+  - deploy
+
+scheduled_job:
+  script:
+    - echo "Pipeline executed successfully"
+    - date
+
+before_script:
+  - echo "this is before script"
+
+after_script:
+  - echo "this is after script"
+
+build-steps:
+  stage: build
+  script:
+    - echo "first step"
+    - echo "Second step"
+    - echo "Third step"
+
+testing-job:
+  stage: test
+  script:
+    - echo "first step test"
+    - echo "second step test"
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "This is deploy Step..."
+
+bash_execution:
+  script:
+    - mkdir myfolder
+    - cp ./try.sh myfolder/
+    - cd myfolder
+    - bash ./try.sh
+    - touch newtext.txt
+  
+  artifacts:
+    paths:
+      - ./myfolder
+    when: on_success
+    expire_in: 30 days
+
+test:
+  stage: test
+  when: manual
+  script:
+    - java HelloWorld
+
+
+----- Java
+class HelloWorld {
+    public static void main(String args[]) {
+        System.out.println("Hello World");
+    }
+}
+
+stages:
+  - build
+  - test
+
+before_script:
+  - apt-get update
+  - apt-get install -y openjdk-17-jdk
+
+build:
+  stage: build
+  script:
+    - javac HelloWorld.java
+    - ls -l
+
+  artifacts:
+    paths:
+      - HelloWorld.class
+
+test:
+  stage: test
+  script:
+    - ls -l
+    - java HelloWorld
+
+----- Git Push
+git clone <repository-url>
+cd HelloWorldJava
+git add .
+git commit -m "Local Machine added a statement"
+git push origin main
+
+
+
+---------------------------------- Docker ---------------------------
+docker info
+docker run hello-world
+docker container ls -a
+docker start <container name>
+docker images
+
+## Nginx
+docker run -d -p 9090:80 nginx
+docker ps -a
+
+## Ubuntu Image
+docker pull ubuntu
+docker images
+
+## Create Ubuntu Container
+docker run -itd --name <image name> ubuntu
+docker ps -a
+
+## Access Ubuntu Container
+docker exec -it <image name> <command>
+ls
+pwd
+exit
+
+## Remove Container
+docker stop <container name>
+docker rm <container name>
+
+## View Networks
+docker network ls
+
+## Create Docker volume
+docker volume create <volume name>
+docker volume ls
+
+## Use Buybox
+docker run -it busybox
+mkdir data
+echo "some data" > data/file.txt
+cat data/file.txt
+exit
+
+## Persistent Storage with Volumes and Verify Volume Persistence
+docker run -it -v mydata:/data busybox
+cat data/file1.txt
+
+
+## Create Application and push to Dockerhub
+mkdir <Folder name>
+cd <Folder name>
+
+--- create file <index.html>
+--- create Dockerfile
+--- Content of dockerfile:
+FROM nginx:latest
+COPY index.html /usr/share/nginx/html/index.html
+
+docker build -t myWebApp
+docker images
+
+docker run -d -p 8080:80 --name <container name> <image name>
+docker ps
+
+--- check localhost:8080
+
+docker login
+docker tag <image name> <username>/<image name>:v1
+
+docker push <username>/<image name>:v1
+docker stop <container name>
+docker rm <container name>
+
+docker rmi <image name>
+docker rmi <username>/<image name>:v1
+docker images
+
+
+---------------------------------- Ansible ---------------------------
+#### Create Your First Ansible Playbook
+mkdir mcai
+cd mcai
+nano first.yml
+
+Content:
+---
+- name: First Ansible Demo
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: print hello world
+      debug:
+        msg: "Hello Ansible"
+
+cat first.yml
+ansible-playbook first.yml
+
+nano first.yml
+Content:
+---
+- name: First Ansible Demo
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+
+  tasks:
+    - name: print hello world
+      debug:
+        msg: "Hello Ansible"
+
+    - name: print host name
+      debug:
+        var: ansible_hostname
+
+    - name: print ubuntu version
+      debug:
+        var: ansible_distribution
+
+ansible-playbook first.yml
+
+
+#### Install and Start Apache
+nano second.yml
+
+Content:
+---
+- name: Install and Start Apache
+  hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+
+    - name: Start Apache Service
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+ansible-playbook second.yml --ask-become-pass //// sudo ansible-playbook second.yml
+
+systemctl status apache2 /// service apache2 status
+
+
+------ Open http://localhost
+
+
+
+#### Infrastructure as Code (Deploying an HTML Page)
+nano third.yml
+
+Content:
+---
+- name: Simple Infrastructure
+  hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+
+    - name: Start Apache Service
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Deploy Index.html
+      copy:
+        content: "<h1>Hello Ansible</h1>"
+        dest: /var/www/html/index.html
+
+sudo ansible-playbook third.yml
+cat /var/www/html/index.html
+
+------ Open http://localhost
+
+
+#### Application Deployment (Running a PHP File)
+nano fourth.yml
+
+Content:
+---
+- name: Deploy a PHP Web Application
+  hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+
+    - name: Install Apache and PHP
+      apt:
+        name:
+          - apache2
+          - php
+        state: present
+        update_cache: yes
+
+    - name: Deploy a PHP application
+      copy:
+        content: |
+          <?php
+          echo "<h1>Hello Ansible and PHP</h1>";
+          echo "<body> Demo page </body>";
+          ?>
+        dest: /var/www/html/index.php
+
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
+
+sudo ansible-playbook fourth.yml
+cat /var/www/html/index.php
+
+------ Open http://localhost/index.php
+
+
+#### Running a Java Program using Ansible
+sudo apt update
+sudo apt install openjdk-21-jdk-headless
+sudo apt install openjdk-21-jre-headless
+
+java --version
+javac --version
+
+nano HelloWorld.java
+
+Content:
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello Java");
+    }
+}
+
+javac HelloWorld.java
+java HelloWorld
+
+nano javaplaybook.yml
+Content:
+---
+- name: Run Java Program using Ansible
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  tasks:
+
+    - name: Compile Java Program
+      command: javac HelloWorld.java
+      register: compile_output
+
+    - name: Run Java Program
+      command: java HelloWorld
+      register: run_output
+
+    - name: Display Java program output
+      debug:
+        msg: "{{ run_output.stdout }}"
+
+ansible-playbook javaplaybook.yml
+
+
+
+#### Git Pull Demo using Ansible
+sudo apt update
+sudo apt install git
+
+mkdir hello
+cd hello
+
+git init
+
+git clone (github url)
+cd ansibleDemo
+ls
+
+cat <file name>
+
+
+#### Directory Playbook
+nano directory_playbook.yml
+
+Content:
+---
+- name: Create and Delete Directory
+  hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+
+    - name: Create test directory
+      file:
+        path: /tmp/testdir
+        state: directory
+        mode: '0755'
+
+    - name: Verify directory creation
+      stat:
+        path: /tmp/testdir
+      register: dir_status
+
+    - name: Display verification result
+      debug:
+        msg: "Directory created successfully"
+      when: dir_status.stat.exists
+
+    - name: Delete test directory
+      file:
+        path: /tmp/testdir
+        state: absent
+
+    - name: Verify directory deletion
+      stat:
+        path: /tmp/testdir
+      register: deleted_status
+
+    - name: Display deletion result
+      debug:
+        msg: "Directory deleted successfully"
+      when: not deleted_status.stat.exists
+
+sudo ansible-playbook directory_playbook.yml
+ls -ld /tmp/testdir
+
+
+
+#### Ad-hoc Commands
+------ Create and Delete Directories on Managed Node
+ansible localhost -m file -a "path=/tmp/testdir state=directory"
+ls -ld /tmp/testdir
+
+ansible localhost -m file -a "path=/tmp/testdir state=absent"
+ls -ld /tmp/testdir
+
+------ Copy Files to Remote Hosts Using Ad-Hoc Commands
+echo "Hello Ansible" > demo.txt
+cat demo.txt
+
+ansible localhost -m copy -a "src=demo.txt dest=/tmp/demo.txt"
+
+cat /tmp/demo.txt
