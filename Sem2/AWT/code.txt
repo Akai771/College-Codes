@@ -1,0 +1,570 @@
+# AWT
+
+------------------ SQL CS -----------------
+using System;
+using System.Data.SqlClient;
+
+namespace sql_demo
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+        SqlDataReader dr;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            con = new SqlConnection(
+                @"Data Source=(LocalDB)\MSSQLLocalDB;
+                  AttachDbFilename=E:\Codes\College-Codes\Sem2\AWT\Practice\sql_demo\sql_demo\App_Data\Database1.mdf;
+                  Integrated Security=True"
+                );
+            con.Open();
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            string qry = "insert into student values" + "('" + TextBox1.Text + "'," + TextBox2.Text + ",'" + TextBox3.Text + "'," + "'" + TextBox4.Text + "')";
+            cmd = new SqlCommand(qry, con);
+            cmd.ExecuteNonQuery();
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string qry = "Select * from student where sroll=" + TextBox2.Text;
+            cmd = new SqlCommand(qry, con);
+            dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                Label5.Text = "Name:" + dr[0].ToString();
+                Label6.Text = "Roll:"  + dr[1].ToString();
+                Label7.Text = "Address:" + dr[2].ToString();
+                Label8.Text = "Contact:" + dr[3].ToString();
+            }
+            dr.Close();
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            string qry = "insert into student values" + "('" + TextBox1.Text + "'" + "'" + TextBox2.Text + "'" + "'" + TextBox3.Text + "'" + "'" + TextBox4.Text + "')";
+            cmd = new SqlCommand(qry, con);
+            cmd.ExecuteNonQuery();
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            string qry = "insert into student values" + "('" + TextBox1.Text + "'" + "'" + TextBox2.Text + "'" + "'" + TextBox3.Text + "'" + "'" + TextBox4.Text + "')";
+            cmd = new SqlCommand(qry, con);
+            cmd.ExecuteNonQuery();
+        }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            Label5.Text = "";
+            Label6.Text = "";
+            Label7.Text = "";
+            Label8.Text = "";
+        }
+
+        protected void Button6_Click(object sender, EventArgs e)
+        {
+            string qry = "Select * from student";
+            cmd = new SqlCommand(qry, con);
+            dr = cmd.ExecuteReader();
+            GridView1.DataSource = dr;
+            GridView1.DataBind();
+            dr.Close();
+        }
+
+    }
+}
+
+------------------------------ SQL procedure -------------------------
+using System;
+using System.Data;
+using System.Data.SqlClient;
+namespace StoredP
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            con = new SqlConnection(
+            @"Data Source=(LocalDB)\MSSQLLocalDB;
+AttachDbFilename=|DataDirectory|\Database1.mdf;
+Integrated Security=True");
+        }
+
+        // INSERT USING STORED PROCEDURE
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            con.Open();
+            cmd = new SqlCommand("sp_register", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            // PARAMETERS
+            cmd.Parameters.AddWithValue("@username", TextBox1.Text);
+            cmd.Parameters.AddWithValue("@email", TextBox2.Text);
+            cmd.Parameters.AddWithValue("@password", TextBox3.Text);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            Response.Write("Record Inserted Successfully");
+        }
+        // DISPLAY DATA
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            SqlDataAdapter da = new SqlDataAdapter("sp_showUsers", con);
+            da.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            GridView1.DataSource = ds;
+            GridView1.DataBind();
+        }
+    }
+}
+
+
+
+------------------------------ Entity Framework -----------------------
+using System;
+using System.Linq;
+
+namespace EmployeeDemo
+{
+public partial class WebForm1 : System.Web.UI.Page
+{
+Database1Entities dc = new Database1Entities();
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+    }
+
+    public void ShowData()
+    {
+        GridView1.DataSource = dc.Employees.ToList();
+        GridView1.DataBind();
+    }
+
+    protected void btnInsert_Click(object sender, EventArgs e)
+    {
+        Employee emp = new Employee();
+
+        emp.EmpId = Convert.ToInt32(txtId.Text);
+        emp.EmpName = txtName.Text;
+        emp.Department = txtDept.Text;
+        emp.Salary = Convert.ToInt32(txtSalary.Text);
+
+        dc.Employees.Add(emp);
+        dc.SaveChanges();
+
+        ShowData();
+    }
+
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        int id = Convert.ToInt32(txtId.Text);
+
+        Employee emp =
+            dc.Employees.SingleOrDefault(x => x.EmpId == id);
+
+        if (emp != null)
+        {
+            emp.EmpName = txtName.Text;
+            emp.Department = txtDept.Text;
+            emp.Salary = Convert.ToInt32(txtSalary.Text);
+
+            dc.SaveChanges();
+            ShowData();
+        }
+    }
+
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        int id = Convert.ToInt32(txtId.Text);
+
+        Employee emp =
+            dc.Employees.SingleOrDefault(x => x.EmpId == id);
+
+        if (emp != null)
+        {
+            dc.Employees.Remove(emp);
+            dc.SaveChanges();
+
+            ShowData();
+        }
+    }
+
+    protected void btnShow_Click(object sender, EventArgs e)
+    {
+        ShowData();
+    }
+}
+
+}
+
+
+
+-------------------------------- Cookies, Viewstate, Hidden field, Query String ----------------
+WebForm1.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace ClientSessionDemo
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+        // ViewState Save
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            ViewState["userid"] = TextBox1.Text;
+            TextBox1.Text = string.Empty;
+            Response.Write("ViewState Created Successfully");
+        }
+        // ViewState Retrieve
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            if (ViewState["userid"] != null)
+            {
+                Label2.Text = ViewState["userid"].ToString();
+            }
+        }
+        // Hidden Field Read
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Label1.Text = HiddenField2.Value;
+        }
+
+        // Query String Send
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("WebForm2.aspx?data=" + TextBox2.Text);
+        }
+        // Cookie Create
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            Response.Cookies["name"].Value = TextBox3.Text;
+            Response.Cookies["name"].Expires = DateTime.Now.AddMinutes(1);
+            Label3.Text = "Cookie Created";
+            TextBox3.Text = "";
+        }
+        // Cookie Read
+        protected void Button6_Click(object sender, EventArgs e)
+        {
+            if (Request.Cookies["name"] == null)
+
+            {
+                TextBox3.Text = "No Cookie Found";
+            }
+            else
+            {
+                TextBox3.Text = Request.Cookies["name"].Value;
+            }
+        }
+    }
+}
+
+WebForm2.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace ClientSessionDemo
+{
+    public partial class WebForm2 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string data = Request.QueryString["data"].ToString();
+            TextBox1.Text = data;
+        }
+    }
+}
+
+
+
+---------------------- Server-Side Session Management ------------------
+Login.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace ServerStateDemo
+{
+    public partial class Login : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            if (txtUser.Text == "admin" && txtPass.Text == "123")
+            {
+                // SESSION (per user)
+                Session["username"] = txtUser.Text;
+                // APPLICATION (global count)
+                Application.Lock();
+                Application["users"] = Convert.ToInt32(Application["users"]) + 1;
+                Application.UnLock();
+                Response.Redirect("Home.aspx");
+            }
+            else
+            {
+                Response.Write("Invalid Login");
+            }
+        }
+    }
+}
+
+
+Home.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace ServerStateDemo
+{
+    public partial class Home : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["username"] != null)
+            {
+                // SESSION DATA
+                lblUser.Text = Session["username"].ToString();
+                // APPLICATION DATA
+                lblUsers.Text = Application["users"].ToString();
+                lblHits.Text = Application["hits"].ToString();
+            }
+            else
+            {
+
+                Response.Redirect("Login.aspx");
+            }
+            // Count hits
+            Application.Lock();
+            Application["hits"] = Convert.ToInt32(Application["hits"]) + 1;
+            Application.UnLock();
+        }
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Response.Redirect("Login.aspx");
+        }
+    }
+}
+
+Global.asax
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.SessionState;
+namespace ServerStateDemo
+{
+    public class Global : System.Web.HttpApplication
+    {
+        protected void Application_Start(object sender, EventArgs e)
+        {
+            Application["users"] = 0;
+            Application["hits"] = 0;
+        }
+    }
+}
+
+
+
+----------------------------------- Web Service -----------------------
+Webservice1.asmx.cs
+using System.Web.Services;
+
+namespace WebService
+{
+    /// <summary>
+    /// Summary description for WebService1
+    /// </summary>
+    [WebService(Namespace = "http://tempuri.org/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [System.ComponentModel.ToolboxItem(false)]
+    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    // [System.Web.Script.Services.ScriptService]
+    public class WebService1 : System.Web.Services.WebService
+    {
+
+        [WebMethod]
+        public string HelloWorld()
+        {
+            return "Hello World";
+        }
+
+        [WebMethod]
+        public string getName(string nm)
+        {
+            return nm;
+        }
+
+        [WebMethod]
+        public int getAccNumber(int a)
+        {
+            return a;
+        }
+    }
+}
+
+Webform1.aspx.cs
+using System;
+
+namespace WebService
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            localhost.WebService1 obj = new localhost.WebService1();
+
+            string name = obj.getName(txtName.Text);
+            int accountNo = obj.getAccNumber(Convert.ToInt32(txtAcct.Text));
+
+            Label1.Text = "Name: " + name;
+            Label2.Text = "Account No: " + accountNo;
+        }
+    }
+}
+
+
+
+
+
+
+--------------------------- Color Question ------------------
+using System;
+
+namespace ColorDemo
+{
+    public partial class Default : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["bgcolor"] != null)
+            {
+                body1.BgColor =
+                    Session["bgcolor"].ToString();
+            }
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            Session["bgcolor"] =
+                ddlColor.SelectedValue;
+
+            Response.Redirect("Default.aspx");
+        }
+    }
+}
+
+
+------------------------- Currency Converter ---------------------
+CurrencyLib.cs
+using System;
+
+namespace CurrencyLib
+{
+    public class CurrencyConverter
+    {
+        // Sample Rates
+        public double RupeeToDollar(double rs)
+        {
+            return rs / 83;
+        }
+
+        public double DollarToRupee(double dollar)
+        {
+            return dollar * 83;
+        }
+
+        public double RupeeToEuro(double rs)
+        {
+            return rs / 90;
+        }
+
+        public double EuroToRupee(double euro)
+        {
+            return euro * 90;
+        }
+
+        public double RupeeToYen(double rs)
+        {
+            return rs * 1.75;
+        }
+
+        public double YenToRupee(double yen)
+        {
+            return yen / 1.75;
+        }
+    }
+}
+
+WebForm1.aspx.cs
+using System;
+using CurrencyLib;
+
+public partial class WebForm1 : System.Web.UI.Page
+{
+    protected void btnConvert_Click(object sender, EventArgs e)
+    {
+        CurrencyConverter cc =
+            new CurrencyConverter();
+
+        double amt =
+            Convert.ToDouble(txtAmount.Text);
+
+        double result = 0;
+
+        switch (ddlConvert.SelectedValue)
+        {
+            case "RupeeToDollar":
+                result = cc.RupeeToDollar(amt);
+                break;
+
+            case "DollarToRupee":
+                result = cc.DollarToRupee(amt);
+                break;
+
+            case "RupeeToEuro":
+                result = cc.RupeeToEuro(amt);
+                break;
+
+            case "EuroToRupee":
+                result = cc.EuroToRupee(amt);
+                break;
+
+            case "RupeeToYen":
+                result = cc.RupeeToYen(amt);
+                break;
+
+            case "YenToRupee":
+                result = cc.YenToRupee(amt);
+                break;
+        }
+
+        lblResult.Text =
+            "Converted Amount : " + result;
+    }
+}
