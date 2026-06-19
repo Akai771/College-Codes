@@ -1,7 +1,5 @@
 import nltk
-
 nltk.download('book')
-
 from nltk.book import *
 
 var='hello world'

@@ -3,10 +3,8 @@
 print("*****************Using nltk*********************")
 
 import nltk
-
 nltk.download('averaged_perceptron_tagger_eng')
 nltk.download('punkt')
-
 from nltk.tokenize import word_tokenize
 from nltk import pos_tag
 
