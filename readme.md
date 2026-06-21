@@ -1,42 +1,47 @@
-# College Codes 📚
+<div align="center">
 
-This repository contains all the programming codes and implementations that I practice for my college practicals. It serves as a collection of various computer science concepts, algorithms, and programming exercises.
+# College Codes
 
-## 📁 What's Inside
+**A running collection of college practical implementations.**
 
-This repository is organized by different subjects and topics covered in my college curriculum. Each folder contains practical implementations and exercises related to that subject.
+Algorithms, data structures, and programming exercises organized by subject — built as I work through my college curriculum.
 
-## 🎯 Purpose
+![Java](https://img.shields.io/badge/Java-Language-ED8B00?style=flat-square&logo=openjdk)
+![JavaScript](https://img.shields.io/badge/JavaScript-Language-F7DF1E?style=flat-square&logo=javascript)
 
-- Practice coding for college practicals
-- Implement various algorithms and data structures
-- Learn different programming concepts
-- Prepare for exams and assignments
-
-## 💻 Technologies
-
-- **Java**
-- **JavaScript**
-
-## 📝 Note
-
-This is a personal learning repository where I continuously add new code as I progress through my college coursework.
-
-## 🤝 Contributing
-
-This is a personal learning repository, but suggestions and improvements are welcome! Feel free to:
-- Report bugs or issues
-- Suggest optimizations
-- Provide feedback on code structure
-
-## 📄 License
-
-This project is created for educational purposes. Feel free to use the code for learning and reference.
-
-## 📧 Contact
-
-For any questions or discussions about the implementations, feel free to reach out!
+</div>
 
 ---
 
-**Happy Coding! 🎉**
+## What's Inside
+
+Organized by subject and topic from the college curriculum. Each folder contains practical implementations and exercises for that subject.
+
+---
+
+## Purpose
+
+- Practice coding for college practicals
+- Implement algorithms and data structures
+- Prepare for exams and assignments
+- Build a personal reference library over time
+
+---
+
+## Notes
+
+Personal learning repo — continuously updated as coursework progresses. Code here for learning and reference; feel free to use it.
+
+Suggestions, optimizations, or feedback on code structure are welcome via issues.
+
+---
+
+## License
+
+Educational use — free to use for learning and reference.
+
+---
+
+<div align="center">
+  <sub>Built by <a href="https://github.com/Akai771">Akai</a></sub>
+</div>
